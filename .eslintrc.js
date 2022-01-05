@@ -38,6 +38,14 @@ module.exports = {
       2,
       { namedComponents: 'arrow-function' },
     ],
+    '@typescript-eslint/type-annotation-spacing': [
+      'error',
+      {
+        before: false,
+        after: true,
+      },
+    ],
+    'object-curly-spacing': ['error', 'always'],
   },
   settings: {
     'import/resolver': {
