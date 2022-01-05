@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 // import logo from "./logo.svg";
-import "./App.css";
+import './App.css';
 
 // type TitleProps = {
 //   name: string;
@@ -8,25 +8,22 @@ import "./App.css";
 
 interface TitleProps {
   name: string;
-}
-interface TitleProps {
-  description: string;
+  description?: string;
 }
 
-const Title: React.FC<TitleProps> = ({ name, description }) => {
-  return (
-    <h1>
-      {name}, {description}
-    </h1>
-  );
-};
+const Title: React.FC<TitleProps> = ({ name, description }) => (
+  <h1>
+    {name}
+    ,
+    {description}
+  </h1>
+);
 
-const App: React.FC = () => {
-  return (
-    <div>
-      <Title name="Aaron" description="..." />
-    </div>
-  );
-};
+const App: React.FC = () => (
+  <div>
+    <Title name="Aaron" />
+    <Title name="Aaron" description="My Description" />
+  </div>
+);
 
 export default App;
