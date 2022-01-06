@@ -21,7 +21,10 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
-    'react/require-default-props': 'off',
+    'max-len': ['error', { code: 150 }],
+    'no-unused-vars': 'warn',
+    'prefer-destructuring': 'warn',
+    'react/destructuring-assignment': 'warn',
     'react/jsx-filename-extension': [
       'warn',
       { extensions: ['.tsx'] },

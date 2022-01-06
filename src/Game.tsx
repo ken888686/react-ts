@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import './Game.css';
 
-const Square: React.FC<{value: number|string, onClick: ()=> void}> = ({ value, onClick }) => (
+type SquareProps={
+  value: number|string,
+  onClick: ()=> void
+}
+const Square: React.FC<SquareProps> = (props) => (
   <button
     type="button"
     className="square"
-    onClick={onClick}
+    onClick={props.onClick}
   >
-    {value}
+    {props.value}
   </button>
 );
 
@@ -31,33 +35,14 @@ const calculateWinner = (squares: string[]) => {
   return null;
 };
 
-const Board: React.FC = () => {
-  const [squares, setSquares] = useState<string[]>(Array(9).fill(null));
-  const [xIsNext, setXIsNext] = useState<boolean>(true);
-
-  const handleClick = (i: number) => {
-    const temp = squares.slice();
-    if (calculateWinner(temp) || temp[i]) {
-      return;
-    }
-
-    temp[i] = xIsNext ? 'X' : 'O';
-    setSquares(temp);
-    setXIsNext(!xIsNext);
-  };
-  const renderSquare = (i: number) => <Square value={squares[i]} onClick={() => handleClick(i)} />;
-
-  const winner = calculateWinner(squares);
-  let status: string = '';
-  if (winner) {
-    status = `Winner: ${winner}`;
-  } else {
-    status = `Next player: ${xIsNext ? 'X' : 'O'}`;
-  }
-
+type BoardProps={
+  squares: string[],
+  onClick: (i: number)=> void
+}
+const Board: React.FC<BoardProps> = (props) => {
+  const renderSquare = (i: number) => <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
   return (
     <div>
-      <div className="status">{status}</div>
       <div className="board-row">
         {renderSquare(0)}
         {renderSquare(1)}
@@ -77,16 +62,61 @@ const Board: React.FC = () => {
   );
 };
 
-const Game: React.FC = () => (
-  <div className="game">
-    <div className="game-board">
-      <Board />
+type GameState={
+  history: {squares: string[]}[],
+  xIsNext: boolean
+}
+const Game: React.FC = () => {
+  const [state, setState] = useState<GameState>(
+    {
+      history: [
+        {
+          squares: Array(9).fill(null),
+        },
+      ],
+      xIsNext: true,
+    },
+  );
+
+  const { history } = state;
+  const current = history[history.length - 1];
+  const winner = calculateWinner(current.squares);
+  let status: string = '';
+  if (winner) {
+    status = `Winner: ${winner}`;
+  } else {
+    status = `Next Player: ${state.xIsNext ? 'X' : 'O'}`;
+  }
+
+  const handleClick = (i: number) => {
+    const squares = current.squares.slice();
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+
+    squares[i] = state.xIsNext ? 'X' : 'O';
+    setState({
+      history: history.concat([{
+        squares,
+      }]),
+      xIsNext: !state.xIsNext,
+    });
+  };
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board
+          squares={current.squares}
+          onClick={(i) => handleClick(i)}
+        />
+      </div>
+      <div className="game-info">
+        <div>{status}</div>
+        <ol>{/* TODO */}</ol>
+      </div>
     </div>
-    <div className="game-info">
-      <div>{/* status */}</div>
-      <ol>{/* TODO */}</ol>
-    </div>
-  </div>
-);
+  );
+};
 
 export default Game;
