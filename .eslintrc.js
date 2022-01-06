@@ -19,6 +19,7 @@ module.exports = {
   plugins: [
     'react',
     '@typescript-eslint',
+    'react-hooks',
   ],
   rules: {
     'max-len': ['error', { code: 150 }],
@@ -29,6 +30,9 @@ module.exports = {
       'warn',
       { extensions: ['.tsx'] },
     ],
+    'react/no-array-index-key': 'warn',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
     'import/extensions': [
       'error',
       'ignorePackages',
