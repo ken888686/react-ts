@@ -1,16 +1,6 @@
 import React from 'react';
 import './App.css';
 
-type TitleProps = {
-  name: string;
-  description?: string;
-};
-
-// interface TitleProps {
-//   name: string;
-//   description?: string;
-// }
-
 const ShoppingList: React.FC<{name: string}> = ({ name }) => (
   <div className="shopping-list">
     <h1>
@@ -26,6 +16,15 @@ const ShoppingList: React.FC<{name: string}> = ({ name }) => (
   </div>
 );
 
+type TitleProps = {
+  name: string,
+  description?: string
+};
+
+// interface TitleProps {
+//   name: string;
+//   description?: string;
+// }
 const Title: React.FC<TitleProps> = ({ name, description }) => (
   <h1>
     {name}

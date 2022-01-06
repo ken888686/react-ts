@@ -33,6 +33,7 @@ module.exports = {
     'react/no-array-index-key': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'react/require-default-props': 'warn',
     'import/extensions': [
       'error',
       'ignorePackages',
