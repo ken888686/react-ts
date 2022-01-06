@@ -32,8 +32,8 @@ const calculateWinner = (squares: string[]) => {
 };
 
 const Board: React.FC = () => {
-  const [squares, setSquares] = useState<string[]>(Array(9).fill('.'));
-  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState<string[]>(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState<boolean>(true);
 
   const handleClick = (i: number) => {
     const temp = squares.slice();
