@@ -95,7 +95,7 @@ const Game: React.FC = () => {
   const handleClick = (i: number) => {
     const historyTemp = history.slice(0, stepNumber + 1);
     const currentTemp = history[history.length - 1];
-    const squares = current.squares.slice();
+    const squares = currentTemp.squares.slice();
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
