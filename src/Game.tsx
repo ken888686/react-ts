@@ -5,13 +5,13 @@ type SquareProps={
   value: number|string,
   onClick: ()=> void
 }
-const Square: React.FC<SquareProps> = (props) => (
+const Square: React.FC<SquareProps> = ({ value, onClick }) => (
   <button
     type="button"
     className="square"
-    onClick={props.onClick}
+    onClick={onClick}
   >
-    {props.value}
+    {value}
   </button>
 );
 
@@ -39,8 +39,8 @@ type BoardProps={
   squares: string[],
   onClick: (i: number)=> void
 }
-const Board: React.FC<BoardProps> = (props) => {
-  const renderSquare = (i: number) => <Square value={props.squares[i]} onClick={() => props.onClick(i)} />;
+const Board: React.FC<BoardProps> = ({ squares, onClick }) => {
+  const renderSquare = (i: number) => <Square value={squares[i]} onClick={() => onClick(i)} />;
   return (
     <div>
       <div className="board-row">
