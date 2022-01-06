@@ -25,6 +25,7 @@ module.exports = {
     'max-len': ['error', { code: 150 }],
     'no-unused-vars': 'warn',
     'prefer-destructuring': 'warn',
+    'keyword-spacing': ['error', { after: true, before: true }],
     'react/destructuring-assignment': 'warn',
     'react/jsx-filename-extension': [
       'warn',
@@ -46,13 +47,7 @@ module.exports = {
       2,
       { namedComponents: 'arrow-function' },
     ],
-    '@typescript-eslint/type-annotation-spacing': [
-      'error',
-      {
-        before: false,
-        after: true,
-      },
-    ],
+    'no-multi-spaces': 'error',
     'object-curly-spacing': ['error', 'always'],
   },
   settings: {
