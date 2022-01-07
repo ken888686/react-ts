@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import './App.scss';
 
 const ShoppingList: React.FC<{name: string}> = ({ name }) => (
   <div className="shopping-list">
@@ -68,9 +68,46 @@ const Clock:React.FC = () => {
   );
 };
 
+const ChangeColor:React.FC = () => {
+  const [count, setCount] = useState(0);
+  const [bg, setBg] = useState('pink');
+  const [name, setName] = useState('Click Change');
+
+  const bgChange = () => {
+    setBg('blue');
+    setName('Pink');
+    setCount((prev) => prev + 1);
+  };
+
+  const bgBack = () => {
+    setBg('pink');
+    setName('Blue');
+    setCount((prev) => prev + 1);
+  };
+
+  return (
+    <div className="container">
+      <button
+        type="button"
+        onClick={() => (count % 2 === 0 ? bgChange() : bgBack())}
+      >
+        {name}
+      </button>
+      <div className="block" style={{ backgroundColor: bg }} />
+      <button
+        type="button"
+        onMouseEnter={bgChange}
+        onMouseLeave={bgBack}
+      >
+        {name}
+      </button>
+    </div>
+  );
+};
+
 const App: React.FC = () => (
   <div>
-    <Clock />
+    <ChangeColor />
   </div>
 );
 
