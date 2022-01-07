@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 
 const ShoppingList: React.FC<{name: string}> = ({ name }) => (
@@ -35,6 +35,22 @@ const Title: React.FC<TitleProps> = ({ name, description }) => (
 
 const Counter:React.FC = () => {
   const [myValue, setMyValue] = useState(0);
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    setCounter((prev) => prev + 1);
+  }, [myValue]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log('Hi');
+    }, 1000);
+    return () => {
+      console.log('clearTimeout');
+      clearTimeout(1000);
+    };
+  }, [counter]);
+
   return (
     <div className="container">
       <button type="button" onClick={() => { setMyValue((prev) => prev - 1); }}>-</button>
@@ -46,6 +62,11 @@ const Counter:React.FC = () => {
       <button type="button" onClick={() => setMyValue(0)}>
         Reset
       </button>
+      <div className="counter">
+        Counter:
+        {' '}
+        {counter}
+      </div>
     </div>
   );
 };
@@ -107,7 +128,7 @@ const ChangeColor:React.FC = () => {
 
 const App: React.FC = () => (
   <div>
-    <ChangeColor />
+    <Counter />
   </div>
 );
 
