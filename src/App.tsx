@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState, useEffect, useRef, forwardRef,
+} from 'react';
 import './App.scss';
 
 const ShoppingList: React.FC<{name: string}> = ({ name }) => (
@@ -126,9 +128,46 @@ const ChangeColor:React.FC = () => {
   );
 };
 
+const GetRef:React.ForwardRefExoticComponent<React.RefAttributes<HTMLHeadingElement>> = forwardRef((props, ref) => {
+  console.log(ref);
+  return (
+    <h1 ref={ref}>Hi</h1>
+  );
+});
+
+const UseRefDemo:React.FC = () => {
+  const h1Ref = useRef<HTMLDivElement>(null);
+  const [count, setCount] = useState(0);
+  const isFirstRun = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRun.current) {
+      console.log(h1Ref.current);
+      isFirstRun.current = false;
+      return;
+    }
+    console.log('Effect Done');
+  }, []);
+
+  const clickHandler = () => {
+    setCount((prev) => prev + 1);
+  };
+
+  return (
+    <div className="container">
+      <h1 ref={h1Ref}>Hi</h1>
+      <GetRef ref={h1Ref} />
+      <button type="button" onClick={() => { clickHandler(); }}>
+        Add:
+        {count}
+      </button>
+    </div>
+  );
+};
+
 const App: React.FC = () => (
   <div>
-    <Counter />
+    <UseRefDemo />
   </div>
 );
 
