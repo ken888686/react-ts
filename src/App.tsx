@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 const ShoppingList: React.FC<{name: string}> = ({ name }) => (
@@ -33,11 +33,44 @@ const Title: React.FC<TitleProps> = ({ name, description }) => (
   </h1>
 );
 
+const Counter:React.FC = () => {
+  const [myValue, setMyValue] = useState(0);
+  return (
+    <div className="container">
+      <button type="button" onClick={() => { setMyValue((prev) => prev - 1); }}>-</button>
+      {' '}
+      <span>{myValue}</span>
+      {' '}
+      <button type="button" onClick={() => setMyValue((prev) => prev + 1)}>+</button>
+      {' '}
+      <button type="button" onClick={() => setMyValue(0)}>
+        Reset
+      </button>
+    </div>
+  );
+};
+
+const Clock:React.FC = () => {
+  let time = new Date().toLocaleTimeString('zh-TW');
+  const [currentTime, setCurrentTime] = useState(time);
+
+  const updateTime = () => {
+    time = new Date().toLocaleTimeString('zh-TW');
+    setCurrentTime(time);
+  };
+
+  setInterval(updateTime, 1000);
+
+  return (
+    <div className="container">
+      {currentTime}
+    </div>
+  );
+};
+
 const App: React.FC = () => (
   <div>
-    <Title name="Aaron" />
-    <Title name="Aaron" description="My Description" />
-    <ShoppingList name="Aaron" />
+    <Clock />
   </div>
 );
 
